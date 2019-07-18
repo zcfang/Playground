@@ -11,8 +11,8 @@
 void reverse_string(std::vector<char> &s);
 
 int main(int argc, char const *argv[]) {
-    std::vector<char> test_case_1{"h","e","l","l","o"};
-    std::vector<char> test_case_2{"H","a","n","n","a","h"};
+    std::vector<char> test_case_1{'h','e','l','l','o'};
+    std::vector<char> test_case_2{'H','a','n','n','a','h'};
 
     return 0;
 }
