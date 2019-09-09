@@ -58,6 +58,7 @@ int main(int argc, char const *argv[]) {
 }
 
 ListNode* create_linked_list(std::vector<int> &linked_list) {
+    if (!linked_list.size()) return NULL;
     ListNode *head = new ListNode(linked_list[0]);
     ListNode *temp = head;
 
