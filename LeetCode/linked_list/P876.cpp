@@ -23,7 +23,7 @@ ListNode* create_linked_list(std::vector<int> &linked_list);
  * Compares two singly-linked list and returns true if they are equivalent
  *
  * @param[in] head_1: Head of singly-linked list
- * @param[in] head_2: Heas of singly-linked list
+ * @param[in] head_2: Head of singly-linked list
  * @returns Returns true if both input singly-linked list are the same, false
  * otherwise. 
  */
