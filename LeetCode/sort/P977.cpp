@@ -23,12 +23,42 @@ int main(int argc, char const *argv[]) {
 }
 
 std::vector<int> sorted_squares(std::vector<int> &A) {
-    std::vector<int> output = A;
+    std::vector<int> output;
+    int i = -1;
     
-    for (std::size_t i = 0; i < output.size(); i++) {
-        output[i] *= output[i];
+    for (std::size_t j = 0; j < A.size(); j++) {
+        if (A[j] >= 0) {
+            i = j;
+            break;
+        }
     }
-    sort(output.begin(), output.end());
-    
+    if (i == 0) {
+        output = A;
+    } else if (i == - 1) {
+        std::reverse(A.begin(), A.end());
+        output = A;
+    } else {
+        int j = i - 1;
+        while (j >= 0 || i != A.size()) {
+            if (j < 0) {
+                output.push_back(A[i]);
+                i++;
+            } else if (i == A.size()) {
+                output.push_back(A[j]);
+                j--;
+            } else if (A[i] > A[j] * -1) {
+                output.push_back(A[j]);
+                j--;
+            } else {
+                output.push_back(A[i]);
+                i++;
+            }
+        }
+    }
+
+    for (std::size_t k = 0; k < output.size(); k++) {
+        output[k] *= output[k];
+    }
+
     return output;
 }
