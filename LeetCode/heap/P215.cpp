@@ -26,7 +26,12 @@ int main(int argc, char const *argv[]) {
 }
 
 int find_kth_largest(std::vector<int> &nums, int k) {
-    std::sort(nums.begin(), nums.end(), std::greater<int>());
-        
-    return nums[k - 1];
+    std::make_heap(nums.begin(), nums.end());
+
+    for (int i = 0; i < k - 1; i++) {
+        std::pop_heap(nums.begin(), nums.end());
+        nums.pop_back();
+    }
+
+    return nums[0];
 }
