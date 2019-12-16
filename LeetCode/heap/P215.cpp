@@ -1,6 +1,8 @@
 #include <vector>
 #include <algorithm>
 #include <functional>
+#include <iostream>
+#include <stdexcept>
 #include <assert.h>
 
 /**
@@ -16,6 +18,124 @@
  */
 int find_kth_largest(std::vector<int> &nums, int k);
 
+class Heap {
+public:
+    std::vector<int> heap_array;
+    /**
+     * Heap constructor
+     *
+     * @param[in] array: An unsorted array of numbers to convert into a heap
+     */
+    Heap(const std::vector<int> array) {
+        heap_array = array;
+    }
+    ~Heap() {};
+
+    /**
+     * Return size of heap
+     *
+     * @returns Size of heap
+     */
+    int size() {
+        return heap_array.size();
+    }
+
+    /**
+     * Convert unsorted input array into a heap
+     */
+    void make_heap() {
+        int start = size() / 2;
+        for (int i = start; i >= 0; i--) {
+            heapify_down(i);
+        }
+    }
+
+    /**
+     * Return root element of input heap
+     *
+     * @returns Root element
+     */
+    int top() {
+        try {
+            int value = heap_array.at(0);
+
+            return value;
+        } catch (const std::out_of_range &oor) {
+            std::cerr << "Out of Range Error: " << oor.what() << "\n";
+        }
+
+        return -1;
+    }
+
+    /**
+     * Remove root element of input heap
+     */
+    void pop_heap() {
+        try {
+            if (size() == 0) {
+                throw std::out_of_range("Out of Range Error: ");
+            }
+            heap_array[0] = heap_array.back();
+            heap_array.pop_back();
+            heapify_down(0);
+        } catch (const std::out_of_range &oor){
+            std::cerr << oor.what() << "\n";
+        }
+    }
+private:
+    /**
+     * Get parent index
+     *
+     * @param[in] index: Node index
+     * @returns Parent index
+     */
+    int get_parent(int index) {
+        return (index - 1) / 2;
+    }
+
+    /**
+     * Get left child index
+     *
+     * @param[in] index: Node index
+     * @returns Left child index
+     */
+    int get_left_child(int index) {
+        return (2 * index) + 1;
+    }
+
+    /**
+     * Get right child index
+     *
+     * @param[in] index: Node index
+     * @returns Right child index
+     */
+    int get_right_child(int index) {
+        return (2 * index) + 2;
+    }
+
+    /**
+     * Maintain heap structure of given index
+     *
+     * @param[in] index: Node index to maintain heap property
+     */
+    void heapify_down(int index) {
+        int left = get_left_child(index);
+        int right = get_right_child(index);
+        int largest = index;
+
+        if (left < size() && heap_array[index] < heap_array[left]) {
+            largest = left;
+        }
+        if (right < size() && heap_array[largest] < heap_array[right]) {
+            largest = right;
+        }
+        if (largest != index) {
+            std::swap(heap_array[index], heap_array[largest]);
+            heapify_down(largest);
+        }
+    }
+};
+
 int main(int argc, char const *argv[]) {
     std::vector<int> nums{3,2,1,5,6,4};
     int k = 2;
@@ -26,12 +146,12 @@ int main(int argc, char const *argv[]) {
 }
 
 int find_kth_largest(std::vector<int> &nums, int k) {
-    std::make_heap(nums.begin(), nums.end());
+    Heap heap(nums);
 
+    heap.make_heap();
     for (int i = 0; i < k - 1; i++) {
-        std::pop_heap(nums.begin(), nums.end());
-        nums.pop_back();
+        heap.pop_heap();
     }
 
-    return nums[0];
+    return heap.top();
 }
