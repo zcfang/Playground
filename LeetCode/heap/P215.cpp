@@ -82,6 +82,16 @@ public:
             std::cerr << oor.what() << "\n";
         }
     }
+
+    /**
+     * Push element to heap
+     *
+     * @param[in] value: Value to push onto heap
+     */
+    void push_heap(int value) {
+        heap_array.push_back(value);
+        heapify_up(size() - 1);
+    }
 private:
     /**
      * Get parent index
@@ -132,6 +142,20 @@ private:
         if (largest != index) {
             std::swap(heap_array[index], heap_array[largest]);
             heapify_down(largest);
+        }
+    }
+
+    /**
+     * Maintain heap structure of given index in upward direction
+     *
+     * @param[in] index: Node index to maintain heap property
+     */
+    void heapify_up(int index) {
+        int parent = get_parent(index);
+
+        if (index && heap_array[parent] < heap_array[index]) {
+            std::swap(heap_array[index], heap_array[parent]);
+            heapify_up(parent);
         }
     }
 };
