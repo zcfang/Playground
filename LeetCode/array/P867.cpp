@@ -3,7 +3,7 @@
 
 /**
  * Problem from LeetCode 867: Transpose Matrix. You can find the
- problem <a href="https://leetcode.com/problems/transpose-matrix/">
+ * problem <a href="https://leetcode.com/problems/transpose-matrix/">
  * here</a>.
  *
  * @param[in] A: matrix
