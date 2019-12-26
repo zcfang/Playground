@@ -1,1 +1,2 @@
 # LeetCode
+# Get Started
