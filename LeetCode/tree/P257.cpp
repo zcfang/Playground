@@ -31,7 +31,7 @@ std::vector<std::string> binary_tree_paths(TreeNode *root);
 /**
  * Builds all root-to-leef paths
  *
- * @param[in] root: A pointer a node of a binary tree
+ * @param[in] root: A pointer to a node of a binary tree
  * @param[in] path: A string representing the path from root-to-leef
  * @param[in,out] output: All root-to-leef paths
  */
