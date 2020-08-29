@@ -34,55 +34,36 @@ int main(int argc, char const *argv[]) {
 }
 
 int my_atoi(std::string str) {
-    int result = 0;
-    bool start = false;
-    bool end = false;
-    char sign = '+';
-    int digit;
+    std::string clean_str;
+        std::string whitelist = "-0123456789";
+        std::size_t start = str.find_first_of(whitelist);
+        std::size_t end = str.find_first_not_of(whitelist, start);
+        int output = 0;
+        bool negative;
 
-    for (char value : str) {
-        if (!start) {
-            switch (value) {
-                case '-':
-                    sign = value;
-                    start = true;
-                    break;
-                case '+':
-                    sign = value;
-                    start = true;
-                    break;
-                case ' ':
-                    break;
-                case '0' ... '9':
-                    result = value - '0';
-                    start = true;
-                    break;
-                default:
-                    return result;
-            }
-        } else if (start && !end) {
-            switch (value) {
-                case '0' ... '9':
-                    digit = (value -'0');
-                    if (sign == '+') {
-                        if (result > INT_MAX / 10 ||
-                            (result == INT_MAX / 10 &&
-                            (digit > 7))) return INT_MAX;
-                        result = (result * 10) + digit;
-                    } else {
-                        if (result < INT_MIN / 10 ||
-                            (result == INT_MIN / 10 &&
-                            (digit > 8))) return INT_MIN;
-                        result = (result * 10) - digit;
-                    }
-                    break;
-                default:
-                    end = true;
-                    break;
-            }
+        if (end - start == 0) {
+            clean_str = "";
+        } else if ((str[str.find_first_not_of(" ")] == '-' &&
+                    std::isdigit(str[str.find_first_not_of(" ") + 1])) ||
+                   (str[str.find_first_not_of(" ")] == '+' &&
+                    std::isdigit(str[str.find_first_not_of(" ") + 1])) ||
+                   std::isdigit(str[str.find_first_not_of(" ")])) {
+            clean_str = str.substr(start, end - start);
+        } else {
+            clean_str = "";
         }
-        if (end) break;
-    }
+        negative = (clean_str.size() > 0) && (clean_str[0] == '-');
+        int i = std::isdigit(clean_str[0]) ? 0 : 1;
+        for (; i < clean_str.size(); i++) {
+            int digit = clean_str[i] - '0';
+            digit = negative ? -digit : digit;
+            if (!std::isdigit(clean_str[i])) return output;
+            if (output > INT_MAX / 10 ||
+                (output == INT_MAX / 10 && digit > 7)) return INT_MAX;
+            if (output < INT_MIN / 10 ||
+                (output == INT_MIN / 10 && digit < -8)) return INT_MIN;
+            output = output * 10 + digit;
+        }
 
-    return result;
+        return output;
 }
