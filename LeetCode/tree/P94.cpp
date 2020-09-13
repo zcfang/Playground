@@ -18,13 +18,13 @@
  
 
 /**
- * Problem from LeetCode 98: Validate Binary Search Tree. You can find the
+ * Problem from LeetCode 94: Binary Tree Inorder Traversal. You can find the
  * problem
- * <a href="https://leetcode.com/problems/validate-binary-search-tree/">
+ * <a href="https://leetcode.com/problems/binary-tree-inorder-traversal/">
  * here</a>.
  *
  * @param[in] root: A pointer to the root of a binary tree
- * @returns True if `root` is a valid binary search tree
+ * @returns Nodes of binary tree organized inorder
  */
 std::vector<int> inorder_traversal(TreeNode *root);
 
