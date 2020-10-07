@@ -2,7 +2,7 @@
 
 /**
  * Problem from LeetCode 190: Reverse Bits. You can find the problem
- * <a href="hhttps://leetcode.com/problems/reverse-bits/">
+ * <a href="https://leetcode.com/problems/reverse-bits/">
  * here</a>.
  *
  * @param[in] n: A 32 bit number
